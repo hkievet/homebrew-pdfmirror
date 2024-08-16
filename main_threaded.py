@@ -9,6 +9,7 @@ def process_page(page_num, doc):
     # Define the transformation matrix for flipping around the Y-axis
     flip_matrix = pymupdf.Matrix(-1, 0, 0, 1, 0, 0)
     pixmap = page.get_pixmap(matrix=flip_matrix)
+    pixmap.set_dpi(300,300)
     # imgpdf = pixmap.tobytes()
     return (page_num, pixmap, width, height)
 
