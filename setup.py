@@ -7,7 +7,7 @@ setup(
     py_modules=['main_threaded'],
     entry_points={
         'console_scripts': [
-            'my_tool = my_tool:main',
+            'pdfmirror = main_threaded:main',
         ],
     },
     install_requires=[

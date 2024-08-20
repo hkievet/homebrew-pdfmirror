@@ -9,6 +9,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
+Requires-Dist: pymupdf
 
 ```
 brew tap hkievet/pdfmirror
@@ -19,4 +20,6 @@ Build:
 
 ```
 python3 setup.py sdist bdist_wheel
+
+shasum -a 256 dist/pdfmirror-0.1.0.tar.gz
 ```
