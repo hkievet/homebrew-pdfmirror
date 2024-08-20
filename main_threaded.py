@@ -2,14 +2,16 @@ import pymupdf
 import concurrent.futures
 import os
 
+FILENAME = "braidonhypnotism00brai.pdf"
+
 def process_page(page_num, doc):
 
     page = doc.load_page(page_num)
     width, height = page.rect.width, page.rect.height
     # Define the transformation matrix for flipping around the Y-axis
-    flip_matrix = pymupdf.Matrix(-1, 0, 0, 1, 0, 0)
+    flip_matrix = pymupdf.Matrix(-4, 0, 0, 4, 0, 0)
     pixmap = page.get_pixmap(matrix=flip_matrix)
-    pixmap.set_dpi(300,300)
+    # pixmap.save("debug_images/" + str(page_num) + ".png")
     # imgpdf = pixmap.tobytes()
     return (page_num, pixmap, width, height)
 
@@ -25,6 +27,7 @@ def flip_pdf_y_axis(input_path, output_path, batch_size=10):
 
     # Get the total number of pages
     num_pages = len(doc)
+    # num_pages = 3
 
     # Create a thread pool executor
     # with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -73,9 +76,9 @@ def flip_pdf_y_axis(input_path, output_path, batch_size=10):
             futures.clear()
 
     # Save the modified document
-    flipped_doc.save(output_path, deflate=True)
+    flipped_doc.save(output_path, deflate=False, expand=1)
     flipped_doc.close()
     doc.close()
 
 # Example usage
-flip_pdf_y_axis("PDFS/Hypnosis_Handbook_of_Hypnotic_Inductions.pdf_text.pdf", "FLIPPED_PDFS/Hypnosis_Handbook_of_Hypnotic_Inductions2.pdf")
+flip_pdf_y_axis("PDFS/"+FILENAME, "FLIPPED_PDFS/"+FILENAME)
