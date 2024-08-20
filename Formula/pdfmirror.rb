@@ -15,7 +15,7 @@ class Pdfmirror < Formula
     end
   
     test do
-      system "#{bin}/my_tool", "--help"
+      system "#{bin}/pdfmirror", "--help"
     end
   end
   
