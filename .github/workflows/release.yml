@@ -9,6 +9,9 @@ on:
   release:
     types: [created] # This triggers when a release is created
 
+env:
+  GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+
 jobs:
   release:
     runs-on: ubuntu-latest
