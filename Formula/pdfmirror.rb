@@ -4,7 +4,7 @@ class Pdfmirror < Formula
     desc "A CLI tool for mirroring PDF"
     homepage "https://github.com/hkievet/pdfmirror"
     url "https://github.com/hkievet/homebrew-pdfmirror/raw/main/dist/pdfmirror-0.1.0.tar.gz"  # Link to the tarball of your package
-    sha256 "24347db8f99222da1df05bb95ab250b4069d41178b9a85c2174da05a3d7a1337"  # Replace with the actual SHA-256 hash
+    sha256 "cdca62fe6902fc57c5928d22e778993ac852351804d8d684a4515da710bc80ab"  # Replace with the actual SHA-256 hash
     license "MIT"
   
     depends_on "python@3.9"  # or whichever Python version you need
