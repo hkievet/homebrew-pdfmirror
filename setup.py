@@ -18,7 +18,7 @@ setup(
     description='A CLI tool to mirror a pdf',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/hkievet/pdfmirror',  # Link to your GitHub repo
+    url='https://github.com/hkievet/homebrew-pdfmirror',  # Link to your GitHub repo
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
