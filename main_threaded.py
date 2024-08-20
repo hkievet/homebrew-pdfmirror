@@ -22,7 +22,7 @@ def flip_pdf_y_axis(input_path, output_path = None, batch_size=10):
 
     if (output_path is None):
         output_path = input_path.replace(".pdf", "_flipped.pdf")
-        
+
     # Open the input PDF document
     doc = pymupdf.open(input_path)
     
