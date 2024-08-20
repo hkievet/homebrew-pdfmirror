@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
 import pymupdf
 import concurrent.futures
 import os
+import argparse
 
-FILENAME = "braidonhypnotism00brai.pdf"
+# FILENAME = "braidonhypnotism00brai.pdf"
 
 def process_page(page_num, doc):
 
@@ -15,7 +18,11 @@ def process_page(page_num, doc):
     # imgpdf = pixmap.tobytes()
     return (page_num, pixmap, width, height)
 
-def flip_pdf_y_axis(input_path, output_path, batch_size=10):
+def flip_pdf_y_axis(input_path, output_path = None, batch_size=10):
+
+    if (output_path is None):
+        output_path = input_path.replace(".pdf", "_flipped.pdf")
+        
     # Open the input PDF document
     doc = pymupdf.open(input_path)
     
@@ -81,4 +88,21 @@ def flip_pdf_y_axis(input_path, output_path, batch_size=10):
     doc.close()
 
 # Example usage
-flip_pdf_y_axis("PDFS/"+FILENAME, "FLIPPED_PDFS/"+FILENAME)
+# flip_pdf_y_axis("PDFS/"+FILENAME, "FLIPPED_PDFS/"+FILENAME)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Process an input file and optionally write to an output file.")
+    parser.add_argument('input_file', help="The input file to process")
+    parser.add_argument('-o', '--output', help="Optional output file name")
+
+    args = parser.parse_args()
+
+    if not os.path.exists(args.input_file):
+        print(f"Error: The file {args.input_file} does not exist.")
+        return
+
+    flip_pdf_y_axis(args.input_file, args.output)
+
+if __name__ == '__main__':
+    main()
