@@ -13,10 +13,9 @@ class Pdfmirror < Formula
   
     def install
       venv = virtualenv_create(libexec)
-      # Upgrade pip and install build tools
-      venv.pip_install "--upgrade", "pip"
-      venv.pip_install "setuptools", "wheel"
-      # Install pymupdf explicitly before the package
+      # Install build tools and pymupdf
+      venv.pip_install "setuptools"
+      venv.pip_install "wheel"
       venv.pip_install "pymupdf"
       # Install the package and link binaries (this should also install dependencies from setup.py)
       venv.pip_install_and_link buildpath
