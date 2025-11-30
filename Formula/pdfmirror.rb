@@ -12,6 +12,8 @@ class Pdfmirror < Formula
   
     def install
       virtualenv_install_with_resources
+      # Explicitly install pymupdf to ensure it's available (in case setup.py dependencies aren't processed correctly)
+      system "#{libexec}/bin/pip", "install", "--upgrade", "pymupdf"
     end
   
     test do
