@@ -12,7 +12,7 @@ class Pdfmirror < Formula
     depends_on "tesseract"   # Adding tesseract as a dependency
   
     def install
-      venv = virtualenv_create(libexec, "python3")
+      venv = virtualenv_create(libexec)
       # Install setuptools and wheel first (needed for building packages)
       venv.pip_install "setuptools", "wheel"
       # Explicitly install pymupdf first to ensure it's available
