@@ -23,6 +23,11 @@ echo "PDFMirror Installer"
 echo "========================================="
 echo ""
 
+# Remove quarantine attributes if present (helps with Gatekeeper)
+echo "Removing quarantine attributes..."
+xattr -dr com.apple.quarantine "$0" 2>/dev/null || true
+echo ""
+
 # Check for Homebrew
 if ! command -v brew &> /dev/null; then
     echo "❌ Homebrew is not installed."

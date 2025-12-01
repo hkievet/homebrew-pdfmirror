@@ -37,12 +37,18 @@ PDFMirror Installer
 
 To install:
 1. Double-click "PDFMirror Installer.app"
+   - If you see a security warning, right-click the app and select "Open"
+   - Or run in Terminal: xattr -cr "PDFMirror Installer.app"
 2. Follow the installation prompts
 3. Right-click any PDF in Finder and select "Quick Actions" → "Mirror PDF"
 
 Requirements:
 - macOS 10.15 or later
 - Homebrew (will be checked during installation)
+
+Security Note:
+If macOS blocks the app, it's because it's unsigned. This is normal for open-source software.
+Right-click and select "Open" to bypass the security warning.
 
 For more information, visit:
 https://github.com/hkievet/homebrew-pdfmirror
@@ -67,6 +73,10 @@ create-dmg \
   --hdiutil-quiet \
   "$PROJECT_ROOT/$DMG_FILE" \
   "$TEMP_DIR"
+
+# Remove quarantine attribute from DMG (helps with Gatekeeper)
+echo "Removing quarantine attribute..."
+xattr -cr "$PROJECT_ROOT/$DMG_FILE" 2>/dev/null || true
 
 # Cleanup
 rm -rf "$TEMP_DIR"
