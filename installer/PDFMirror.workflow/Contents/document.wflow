@@ -18,7 +18,9 @@
 			<key>ActionParameters</key>
 			<dict>
 				<key>COMMAND_STRING</key>
-				<string># Find pdfmirror command (works for both Intel and Apple Silicon)
+				<string>#!/bin/zsh
+
+# Find pdfmirror command (works for both Intel and Apple Silicon)
 if [ -f "/opt/homebrew/bin/pdfmirror" ]; then
     PDFMIRROR_CMD="/opt/homebrew/bin/pdfmirror"
 elif [ -f "/usr/local/bin/pdfmirror" ]; then
@@ -27,19 +29,33 @@ else
     PDFMIRROR_CMD="pdfmirror"
 fi
 
+notify() {
+  local message="$1"
+  local sound="$2"
+
+  /usr/bin/osascript - "$message" "$sound" &lt;&lt;'EOF'
+on run argv
+  set theMessage to item 1 of argv
+  set theSound to item 2 of argv
+  display notification theMessage with title "PDFMirror" sound name theSound
+end run
+EOF
+}
+
 for f in "$@"
 do
     # Get the full path and create output filename
     output_file="${f%.pdf}_flipped.pdf"
-    
+
     # Run pdfmirror
     "$PDFMIRROR_CMD" "$f" -o "$output_file"
-    
+    exit_code=$?
+
     # Show notification
-    if [ $? -eq 0 ]; then
-        osascript -e "display notification \"Created: $(basename \"$output_file\")\" with title \"PDFMirror\" sound name \"Glass\""
+    if [ $exit_code -eq 0 ]; then
+        notify "Created: $(basename "$output_file")" "Glass"
     else
-        osascript -e "display notification \"Error processing: $(basename \"$f\")\" with title \"PDFMirror\" sound name \"Basso\""
+        notify "Error processing: $(basename "$f")" "Basso"
     fi
 done</string>
 				<key>CheckedForUserDefaultShell</key>
