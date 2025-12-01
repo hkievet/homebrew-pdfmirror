@@ -38,14 +38,12 @@ jobs:
       - name: Build app bundle
         run: |
           chmod +x installer/create_app.sh
-          cd installer
-          ./create_app.sh
+          ./installer/create_app.sh
       
       - name: Create DMG
         run: |
           chmod +x installer/create_dmg.sh
-          cd installer
-          ./create_dmg.sh ${{ steps.version.outputs.version }}
+          ./installer/create_dmg.sh ${{ steps.version.outputs.version }}
       
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4

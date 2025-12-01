@@ -23,10 +23,12 @@ if ! command -v create-dmg &> /dev/null; then
     brew install create-dmg
 fi
 
-# Build the app bundle first
-echo "Building app bundle..."
-bash "$SCRIPT_DIR/create_app.sh"
+# Use existing app bundle (should be built by workflow)
 APP_SOURCE="$SCRIPT_DIR/$APP_NAME"
+if [ ! -d "$APP_SOURCE" ]; then
+    echo "App bundle not found, building it..."
+    bash "$SCRIPT_DIR/create_app.sh"
+fi
 
 # Copy app to temp directory
 cp -R "$APP_SOURCE" "$TEMP_DIR/"
@@ -61,7 +63,16 @@ if [ -f "$SCRIPT_DIR/../.github/icon.icns" ]; then
     ICON_ARG="--volicon $SCRIPT_DIR/../.github/icon.icns"
 fi
 
-create-dmg \
+# Ensure output directory exists
+mkdir -p "$PROJECT_ROOT"
+
+# Remove existing DMG if it exists
+if [ -f "$PROJECT_ROOT/$DMG_FILE" ]; then
+    echo "Removing existing DMG file..."
+    rm -f "$PROJECT_ROOT/$DMG_FILE"
+fi
+
+if ! create-dmg \
   --volname "PDFMirror Installer" \
   $ICON_ARG \
   --window-pos 200 120 \
@@ -70,9 +81,12 @@ create-dmg \
   --icon "$APP_NAME" 175 190 \
   --hide-extension "$APP_NAME" \
   --app-drop-link 425 190 \
-  --hdiutil-quiet \
   "$PROJECT_ROOT/$DMG_FILE" \
-  "$TEMP_DIR"
+  "$TEMP_DIR"; then
+    echo "Error: Failed to create DMG"
+    rm -rf "$TEMP_DIR"
+    exit 1
+fi
 
 # Remove quarantine attribute from DMG (helps with Gatekeeper)
 echo "Removing quarantine attribute..."
