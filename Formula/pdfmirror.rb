@@ -13,8 +13,6 @@ class Pdfmirror < Formula
   
     def install
       virtualenv_install_with_resources
-      # Explicitly install pymupdf using only-binary to use pre-built wheels
-      system "#{libexec}/bin/pip", "install", "--only-binary", ":all:", "pymupdf"
     end
   
     test do
