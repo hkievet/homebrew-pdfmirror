@@ -5,7 +5,7 @@ class Pdfmirror < Formula
     homepage "https://github.com/hkievet/homebrew-pdfmirror"
     url "https://github.com/hkievet/homebrew-pdfmirror/releases/download/v0.1.8/pdfmirror-0.1.0.tar.gz"  # Link to the tarball of your package
     sha256 "7567eb91d57fdbcb6267ef44a1a459629e2aeb5b9b188229c7b784f20c16f4b2"  # Replace with the actual SHA-256 hash
-    version "0.1.4"  # Explicit version to force upgrade recognition
+    version "0.1.5"  # Explicit version to force upgrade recognition
     license "MIT"
   
     depends_on "python@3.9"  # or whichever Python version you need
@@ -13,6 +13,8 @@ class Pdfmirror < Formula
   
     def install
       virtualenv_install_with_resources
+      # Explicitly install pymupdf (virtualenv_install_with_resources may not install it from setup.py)
+      system "#{libexec}/bin/python", "-m", "pip", "install", "pymupdf"
     end
   
     test do
