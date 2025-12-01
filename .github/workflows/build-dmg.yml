@@ -16,7 +16,7 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Set up Homebrew
         uses: homebrew/actions/setup-homebrew@master
@@ -48,7 +48,7 @@ jobs:
           ./create_dmg.sh ${{ steps.version.outputs.version }}
       
       - name: Upload DMG artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PDFMirror-Installer-${{ steps.version.outputs.version }}.dmg
           path: PDFMirror-Installer-${{ steps.version.outputs.version }}.dmg
