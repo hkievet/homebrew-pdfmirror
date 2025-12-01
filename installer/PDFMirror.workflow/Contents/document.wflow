@@ -27,19 +27,6 @@ else
     PDFMIRROR_CMD="pdfmirror"
 fi
 
-notify() {
-  local message="$1"
-  local sound="$2"
-
-  /usr/bin/osascript - "$message" "$sound" &lt;&lt;'EOF'
-on run argv
-  set theMessage to item 1 of argv
-  set theSound to item 2 of argv
-  display notification theMessage with title "PDFMirror" sound name theSound
-end run
-EOF
-}
-
 for f in "$@"
 do
     # Get the full path and create output filename
@@ -51,9 +38,11 @@ do
 
     # Show notification
     if [ $exit_code -eq 0 ]; then
-        notify "Created: $(basename "$output_file")" "Glass"
+        output_name=$(basename "$output_file")
+        osascript -e "display notification \"Created: $output_name\" with title \"PDFMirror\" sound name \"Glass\""
     else
-        notify "Error processing: $(basename "$f")" "Basso"
+        input_name=$(basename "$f")
+        osascript -e "display notification \"Error processing: $input_name\" with title \"PDFMirror\" sound name \"Basso\""
     fi
 done</string>
 				<key>CheckedForUserDefaultShell</key>
