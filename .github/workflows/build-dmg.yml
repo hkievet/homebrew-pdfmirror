@@ -24,11 +24,6 @@ jobs:
       - name: Install create-dmg
         run: brew install create-dmg
       
-      - name: Extract version from release
-        if: github.event_name == 'release'
-        id: version
-        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      
       - name: Set version
         id: version
         run: |
