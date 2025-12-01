@@ -70,8 +70,19 @@ if [ -d "$SERVICES_DIR/$QUICK_ACTION_NAME" ]; then
     rm -rf "$SERVICES_DIR/$QUICK_ACTION_NAME"
 fi
 
-cp -R "$QUICK_ACTION_PATH" "$SERVICES_DIR/"
+# Copy workflow using ditto to preserve metadata
+ditto "$QUICK_ACTION_PATH" "$SERVICES_DIR/$QUICK_ACTION_NAME"
 echo "✓ Quick Action installed to $SERVICES_DIR/$QUICK_ACTION_NAME"
+
+# Remove quarantine attributes from the installed workflow (critical for it to work)
+echo "  Removing quarantine attributes from workflow..."
+xattr -dr com.apple.quarantine "$SERVICES_DIR/$QUICK_ACTION_NAME" 2>/dev/null || true
+
+# Ensure proper permissions
+chmod -R 755 "$SERVICES_DIR/$QUICK_ACTION_NAME"
+
+# Touch the workflow to update timestamp (helps macOS recognize it)
+touch "$SERVICES_DIR/$QUICK_ACTION_NAME"
 echo ""
 
 # Refresh services

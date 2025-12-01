@@ -1,22 +1,33 @@
 ## Installation
 
-### Option 1: Homebrew (Recommended for Developers)
+### Quick Install (Recommended)
+
+Run this command in Terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hkievet/homebrew-pdfmirror/main/install.sh | bash
+```
+
+Or download `install.sh` and run:
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+This will:
+- Install pdfmirror via Homebrew
+- Set up the Finder Quick Action automatically
+
+### Manual Installation
+
+If you prefer to install manually:
 
 ```bash
 brew tap hkievet/pdfmirror
 brew install pdfmirror
 ```
 
-### Option 2: DMG Installer (Recommended for End Users)
-
-Download the DMG installer from the [Releases](https://github.com/hkievet/homebrew-pdfmirror/releases) page:
-
-1. Download `PDFMirror-Installer-X.X.X.dmg`
-2. Double-click the DMG to open it
-3. Double-click "PDFMirror Installer.app"
-4. Follow the installation prompts
-
-After installation, you can right-click any PDF file in Finder and select **Quick Actions** → **Mirror PDF** to mirror it.
+Then create the Automator workflow manually (see instructions below).
 
 ## Usage
 
@@ -28,7 +39,7 @@ pdfmirror input.pdf -o output.pdf
 
 ### Finder Integration
 
-After installing via DMG:
+After running the installer script:
 1. Right-click any PDF file in Finder
 2. Select **Quick Actions** → **Mirror PDF**
 3. The mirrored PDF will be created in the same folder with `_flipped.pdf` suffix
@@ -42,6 +53,3 @@ python3 setup.py sdist bdist_wheel
 shasum -a 256 dist/pdfmirror-0.1.0.tar.gz
 ```
 
-### Build DMG Installer
-
-See [installer/README.md](installer/README.md) for details.

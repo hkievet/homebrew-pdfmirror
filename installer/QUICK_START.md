@@ -2,33 +2,38 @@
 
 ## For Users
 
-1. Download `PDFMirror-Installer-X.X.X.dmg` from the releases page
-2. Double-click the DMG to open it
-3. Double-click "PDFMirror Installer.app"
-4. Follow the installation prompts in the terminal window
-5. Once complete, right-click any PDF in Finder and select "Quick Actions" → "Mirror PDF"
+### Quick Install
+
+Run this command in Terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/hkievet/homebrew-pdfmirror/main/install.sh | bash
+```
+
+Or download `install.sh` and run:
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+### Manual Installation
+
+1. Install pdfmirror via Homebrew:
+   ```bash
+   brew tap hkievet/pdfmirror
+   brew install pdfmirror
+   ```
+
+2. Create the Automator workflow manually (see instructions below)
+
+3. Once complete, right-click any PDF in Finder and select "Quick Actions" → "Mirror PDF"
 
 ## For Developers
 
-### Building Locally
-
-```bash
-# Install create-dmg if needed
-brew install create-dmg
-
-# Build the app bundle
-cd installer
-./create_app.sh
-
-# Create the DMG (optional - specify version)
-./create_dmg.sh 1.0.0
-```
-
 ### Testing the Installer
 
-1. Build the app: `./create_app.sh`
-2. Double-click `PDFMirror Installer.app` to test
-3. Or run directly: `open "PDFMirror Installer.app"`
+1. Run the install script: `./install.sh`
+2. Test the Quick Action on a PDF file
 
 ### Testing the Quick Action
 
@@ -54,5 +59,3 @@ After installation:
 ### Permission errors
 - The installer needs to write to `~/Library/Services/`
 - Make sure you have write permissions to your home directory
-
-

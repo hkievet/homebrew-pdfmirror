@@ -1,3 +1,94 @@
+#!/bin/bash
+
+# PDFMirror Simple Installer
+# This script installs pdfmirror and sets up the Finder Quick Action
+
+set -e
+
+echo "========================================="
+echo "PDFMirror Installer"
+echo "========================================="
+echo ""
+
+# Check for Homebrew
+if ! command -v brew &> /dev/null; then
+    echo "❌ Homebrew is not installed."
+    echo ""
+    echo "Please install Homebrew first:"
+    echo "  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+    echo ""
+    exit 1
+fi
+
+echo "✓ Homebrew found"
+echo ""
+
+# Install pdfmirror
+if ! command -v pdfmirror &> /dev/null; then
+    echo "Installing pdfmirror..."
+    brew tap hkievet/pdfmirror
+    brew install pdfmirror
+    echo "✓ pdfmirror installed"
+else
+    echo "✓ pdfmirror is already installed"
+fi
+
+echo ""
+
+# Create the Automator workflow
+SERVICES_DIR="$HOME/Library/Services"
+WORKFLOW_NAME="PDFMirror.workflow"
+WORKFLOW_PATH="$SERVICES_DIR/$WORKFLOW_NAME"
+
+echo "Creating Finder Quick Action..."
+
+# Remove existing workflow if present
+if [ -d "$WORKFLOW_PATH" ]; then
+    rm -rf "$WORKFLOW_PATH"
+fi
+
+# Create workflow directory structure
+mkdir -p "$WORKFLOW_PATH/Contents"
+
+# Create Info.plist
+cat > "$WORKFLOW_PATH/Contents/Info.plist" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.hkievet.pdfmirror</string>
+	<key>CFBundleName</key>
+	<string>PDFMirror</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Mirror PDF</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>runWorkflowAsService</string>
+			<key>NSRequiredContext</key>
+			<dict>
+				<key>NSApplicationIdentifier</key>
+				<string>com.apple.finder</string>
+			</dict>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
+EOF
+
+# Create document.wflow with your working script
+cat > "$WORKFLOW_PATH/Contents/document.wflow" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -99,8 +190,8 @@ done</string>
 				<dict>
 					<key>default value</key>
 					<false/>
-				<key>name</key>
-				<string>checked</string>
+					<key>name</key>
+					<string>checked</string>
 					<key>required</key>
 					<string>0</string>
 					<key>type</key>
@@ -143,4 +234,28 @@ done</string>
 	<string>1</string>
 </dict>
 </plist>
+EOF
+
+# Set proper permissions
+chmod -R 755 "$WORKFLOW_PATH"
+
+# Remove any quarantine attributes
+xattr -dr com.apple.quarantine "$WORKFLOW_PATH" 2>/dev/null || true
+
+echo "✓ Quick Action installed to $WORKFLOW_PATH"
+echo ""
+
+# Refresh Finder
+killall Finder 2>/dev/null || true
+sleep 1
+
+echo "========================================="
+echo "Installation Complete!"
+echo "========================================="
+echo ""
+echo "You can now:"
+echo "  1. Right-click any PDF file in Finder"
+echo "  2. Select 'Quick Actions' → 'Mirror PDF'"
+echo "  3. The mirrored PDF will be created in the same folder"
+echo ""
 
