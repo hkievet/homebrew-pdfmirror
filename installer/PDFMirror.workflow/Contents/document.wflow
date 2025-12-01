@@ -33,7 +33,7 @@ do
     output_file="${f%.pdf}_flipped.pdf"
     
     # Run pdfmirror
-    "$PDFMIRROR_CMD" "$f" -o "$output_file" 2>&1
+    "$PDFMIRROR_CMD" "$f" -o "$output_file"
     
     # Show notification
     if [ $? -eq 0 ]; then
@@ -99,8 +99,8 @@ done</string>
 				<dict>
 					<key>default value</key>
 					<false/>
-					<key>name</key>
-					<string>checked</key>
+				<key>name</key>
+				<string>checked</string>
 					<key>required</key>
 					<string>0</string>
 					<key>type</key>

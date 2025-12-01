@@ -2,3 +2,8 @@ FLIPPED_PDFS/*
 PDFS/*
 venv
 ignored/*
+
+# Build artifacts
+*.dmg
+installer/*.app/
+installer/PDFMirror Installer.app/
