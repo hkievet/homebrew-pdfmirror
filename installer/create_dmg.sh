@@ -30,8 +30,15 @@ if [ ! -d "$APP_SOURCE" ]; then
     bash "$SCRIPT_DIR/create_app.sh"
 fi
 
+# Remove quarantine attributes from app bundle (helps with Gatekeeper)
+echo "Removing quarantine attributes from app bundle..."
+xattr -cr "$APP_SOURCE" 2>/dev/null || true
+
 # Copy app to temp directory
 cp -R "$APP_SOURCE" "$TEMP_DIR/"
+
+# Remove quarantine from copied app as well (in case it was re-added)
+xattr -cr "$TEMP_DIR/$APP_NAME" 2>/dev/null || true
 
 # Create README
 cat > "$TEMP_DIR/README.txt" <<EOF
