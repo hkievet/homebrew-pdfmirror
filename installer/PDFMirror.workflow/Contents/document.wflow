@@ -18,9 +18,7 @@
 			<key>ActionParameters</key>
 			<dict>
 				<key>COMMAND_STRING</key>
-				<string>#!/bin/zsh
-
-# Find pdfmirror command (works for both Intel and Apple Silicon)
+				<string># Find pdfmirror command (works for both Intel and Apple Silicon)
 if [ -f "/opt/homebrew/bin/pdfmirror" ]; then
     PDFMIRROR_CMD="/opt/homebrew/bin/pdfmirror"
 elif [ -f "/usr/local/bin/pdfmirror" ]; then
