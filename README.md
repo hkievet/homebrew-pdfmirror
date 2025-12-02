@@ -25,7 +25,7 @@ brew tap hkievet/pdfmirror
 brew install pdfmirror
 ```
 
-## macOS Shortcut
+## Finder Integration
 
 You can also use PDFMirror via a macOS Shortcut for quick access:
 
@@ -43,4 +43,3 @@ You can also use PDFMirror via a macOS Shortcut for quick access:
    - Run "Mirror PDF" from your shortcuts
    - Or add it to your menu bar or use Siri to trigger it
 
-## Finder Integration
