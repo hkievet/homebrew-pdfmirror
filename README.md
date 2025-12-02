@@ -1,55 +1,46 @@
+## About
+
+This tool allows you to produce a "mirrored" version of a PDF.
+
+## Demo
+
+Watch a demo of the tool in action:
+
+📹 [Demo Video](demo-video/demo.mov)
+
 ## Installation
 
-### Quick Install (Recommended)
+Install the tool by opening up Terminal
 
-Run this command in Terminal:
+Install [Homebrew](https://brew.sh/) if not installed already.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/hkievet/homebrew-pdfmirror/main/install.sh | bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Or download `install.sh` and run:
-```bash
-chmod +x install.sh
-./install.sh
-```
-
-This will:
-- Install pdfmirror via Homebrew
-- Set up the Finder Quick Action automatically
-
-### Manual Installation
-
-If you prefer to install manually:
+Then tap this repo and install the tool.
 
 ```bash
 brew tap hkievet/pdfmirror
 brew install pdfmirror
 ```
 
-Then create the Automator workflow manually (see instructions below).
+## macOS Shortcut
 
-## Usage
+You can also use PDFMirror via a macOS Shortcut for quick access:
 
-### Command Line
+1. Download the shortcut file:
+   - Click [here](macos-shortcut/MirrorPDF.shortcut) to download `MirrorPDF.shortcut`
+   - Or clone this repository and navigate to the `macos-shortcut` folder
 
-```bash
-pdfmirror input.pdf -o output.pdf
-```
+2. Install the shortcut:
+   - Double-click the downloaded `MirrorPDF.shortcut` file
+   - macOS will prompt you to add it to Shortcuts
+   - Click "Add Shortcut" to install it
 
-### Finder Integration
+3. Use the shortcut:
+   - Open the Shortcuts app
+   - Run "Mirror PDF" from your shortcuts
+   - Or add it to your menu bar or use Siri to trigger it
 
-After running the installer script:
-1. Right-click any PDF file in Finder
-2. Select **Quick Actions** → **Mirror PDF**
-3. The mirrored PDF will be created in the same folder with `_flipped.pdf` suffix
-
-## Building
-
-### Build Python Package
-
-```bash
-python3 setup.py sdist bdist_wheel
-shasum -a 256 dist/pdfmirror-0.1.0.tar.gz
-```
-
+## Finder Integration
