@@ -43,7 +43,10 @@ You can also use PDFMirror via a macOS Shortcut for quick access:
    - Click "Add Shortcut" to install it
 
 3. Use the shortcut:
-   - Open the Shortcuts app
-   - Run "Mirror PDF" from your shortcuts
-   - Or add it to your menu bar or use Siri to trigger it
+   - Right click on a pdf file in Finder.  Quick Actions -> Mirror PDF
+   - Or open the Shortcuts app and run "Mirror PDF", add it to your menu bar, or use Siri to trigger it
+   - This should create a pdf in the same directory.  Longer PDFs will take a moment to generate.
 
+## Caveats
+
+- The "flipped" pdf is all image.  Images have much worse compression than textual data.  This means that the flipped version of a pdf can be quite a bit larger memory-wise than the original.
