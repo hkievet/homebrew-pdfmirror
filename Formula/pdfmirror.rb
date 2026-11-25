@@ -8,7 +8,7 @@ class Pdfmirror < Formula
     version "0.1.5"  # Explicit version to force upgrade recognition
     license "MIT"
   
-    depends_on "python@3.9"  # or whichever Python version you need
+    depends_on "python@3.14"
     depends_on "tesseract"   # Adding tesseract as a dependency
   
     def install
